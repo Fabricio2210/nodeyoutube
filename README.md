@@ -7,6 +7,6 @@ Run npm i on all folders
 * Run npm run videoInfo
 
 ## Tips
-*The database is built from YouTube's automatically generated captions so there will be mistakes, misspellings etc.
-*Try searching for what you think would be the most common spelling based on the sound of the word.
-*Common words like "can" or "the" can delay the search. Try to be as specific as possible.
+* The database is built from YouTube's automatically generated captions so there will be mistakes, misspellings etc.
+* Try searching for what you think would be the most common spelling based on the sound of the word.
+* Common words like "can" or "the" can delay the search. Try to be as specific as possible.
