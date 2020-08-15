@@ -50,13 +50,15 @@
                 <p class="titleCard">Title:<a class="linkCard" :href="data.videoUrl" target="blank"> {{data.title}}</a></p>
                 <p>Channel: {{data.uploader}}</p>
                 <p>Uploaded on : {{data.dataUpload | moment("MM/DD/YYYY")}}</p>
-                <P v-if="data.context">Context : <a class="linkCard" :href="data.videoUrl" target="blank">"{{data.context}}"</a></P>
+                <p v-if="data.context">Context : <a class="linkCard" :href="data.videoUrl" target="blank">"{{data.context}}"</a></p>
+                <p v-if="data.timeStamp">Timestamp: <a class="linkCard" :href="data.videoUrl" target="blank">"{{new Date(data.timeStamp * 1000).toISOString().substr(11, 8)}}"</a></p>
               </div>
               <div class="col-md-6 d-sm-block d-md-none" style="padding-top: 20px !important">
                 <p class="titleCardSm">Title:<a class="linkCard" :href="data.videoUrl" target="blank"> {{data.title}}</a></p>
                 <p class="titleCardSm">Channel: {{data.uploader}}</p>
                 <p class="titleCardSm">Uploaded on : {{data.dataUpload | moment("MM/DD/YYYY")}}</p>
-                <P class="titleCardSm" v-if="data.context">Context : <a class="linkCard" :href="data.videoUrl" target="blank">"{{data.context}}"</a></P>
+                <p class="titleCardSm" v-if="data.context">Context : <a class="linkCard" :href="data.videoUrl" target="blank">"{{data.context}}"</a></p>
+                <p class="titleCardSm" v-if="data.timeStamp">Timestamp: <a class="linkCard" :href="data.videoUrl" target="blank">"{{new Date(data.timeStamp * 1000).toISOString().substr(11, 8)}}"</a></p>
               </div>
             </div>
         </div>
