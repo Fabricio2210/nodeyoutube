@@ -1,15 +1,15 @@
 <template>
-    <div class="animated fadeIn">
+    <div id="up" class="animated fadeIn text-white">
       <div v-if="info2.length">
        <Loading v-if="isLoading" />
       <div v-if="!isLoading">
-      <div  class="row py-4">
-        <div class="col-md-12 d-none d-lg-block">
+      <div class="row py-4">
+        <div class="col-md-12 d-none d-lg-block textMenuButtons">
           <h5 v-if="formCaption && formTitle" class="text-center">Found {{totalResults}} results for "{{formCaption}}" divided into {{totalPages2}} pages. </h5>
            <h5 v-if="formCaption && !formTitle" class="text-center">Found {{totalResults}} results for "{{formCaption}}" divided into {{totalPages2}} pages. </h5>
           <h5 v-if="formTitle && !formCaption" class="text-center">Found {{totalResults}} results for "{{formTitle}}" divided into {{totalPages2}} pages. </h5>
         </div>
-        <div class="col-sm-12 pt-5  d-sm-block d-md-none">
+        <div class="col-sm-12 pt-5  d-sm-block d-md-none textMenuButtons">
            <p v-if="formCaption && formTitle" class="text-center paraInfo">{{totalResults}} results  for "{{formCaption}}" in {{totalPages2}} pages. </p>
           <p v-if="formCaption && !formTitle" class="text-center paraInfo">{{totalResults}} results  for "{{formCaption}}" in {{totalPages2}} pages. </p>
           <p v-if="formTitle && !formCaption" class="text-center paraInfo">{{totalResults}} results  for "{{formTitle}}" in {{totalPages2}} pages.</p>
@@ -19,22 +19,22 @@
             <span class="text-center navButton pl-4">
               <button class="btn" :disabled='isPreviousDisable' @click="firstPage"><v-icon name="angle-double-left" scale="2"/></button>
               <button class="btn" :disabled='isPreviousDisable' @click="previousPage"><v-icon name="angle-left" scale="2"/></button>
-              <span class="slide-font">Page {{currentPageServer}} </span>
+              <span class="slide-font textMenuButtons">Page {{currentPageServer}} </span>
               <button class="btn" :disabled='isNextDisable' @click="nextPage"><v-icon name="angle-right" scale="2"/></button>
               <button class="btn" @click="lastPage" :disabled='isNextDisable'><v-icon name="angle-double-right" scale="2"/></button>
             </span>
-              <span class="navButton"><input type="number" @change="noNegativeNumber" name="pin" maxlength="3" size="3" v-model="selectedPageServer" class="inputNumber">
-              <button @click="goToPageServer"><v-icon name="search" scale="1"/></button></span>
+              <span class="navButton spanInput"><input @focus="checkInInput" @blur="checkOutInput" type="number" @change="noNegativeNumber" name="pin" maxlength="3" size="3" v-model="selectedPageServer" class="inputNumber">
+              <button :disabled="isInputEmpty" class="buttonSearch" @click="goToPageServer"><v-icon :class="{searchIconDisabled:isInputEmpty}" name="search" scale="1"/></button></span>
           </div> 
           <div class="col-sm-12  pb-2 d-sm-block d-md-none" >
             <div class="text-center navButtonsm ">
               <button class="btn" :disabled='isPreviousDisable' @click="firstPage"><v-icon name="angle-double-left" scale="2"/></button>
               <button class="btn" :disabled='isPreviousDisable' @click="previousPage"><v-icon name="angle-left" scale="2"/></button>
-              <span class="paraInfo">Page {{currentPageServer}}</span>
+              <span class="paraInfo textMenuButtons">Page {{currentPageServer}}</span>
               <button class="btn" :disabled='isNextDisable' @click="nextPage"><v-icon name="angle-right" scale="2"/></button>
               <button class="btn" @click="lastPage" :disabled='isNextDisable'><v-icon name="angle-double-right" scale="2"/></button>
-              <span class="navButtonsm"><input type="number" @change="noNegativeNumber" class="inputSearch inputSearchSm" name="pin" maxlength="3" size="3" v-model="selectedPageServer">
-              <button @click="goToPageServer"><v-icon name="search" scale="1"/></button></span>
+              <span class="navButtonsm spanInputSm"><input  @focus="checkInInput" @blur="checkOutInput" type="number" @change="noNegativeNumber" class="inputSearch inputSearchSm" name="pin" maxlength="3" size="3" v-model="selectedPageServer">
+              <button :disabled="isInputEmpty" class="buttonSearch" @click="goToPageServer"><v-icon :class="{searchIconDisabled:isInputEmpty}" name="search" scale="1"/></button></span>
             </div>
           </div> 
         </div>
@@ -43,32 +43,32 @@
         <div  v-for="data in info2" v-bind:key="data.id">
             <div class="row py-2 bordaForm m-3">
               <br>
-              <div class="col-md-4 pt-3">
+              <div class="col-md-4 py-2">
                  <img class="img-thumbnail" :src="data.thumbnail"  alt="Card image cap">
               </div>
-              <div class="col-md-6 d-none d-lg-block" style="padding-top: 40px !important">
+              <div class="col-md-8 d-none d-lg-block py-2">
                 <p class="titleCard">Title:<a class="linkCard" :href="data.videoUrl" target="blank"> {{data.title}}</a></p>
                 <p>Channel: {{data.uploader}}</p>
                 <p>Uploaded on : {{data.dataUpload | moment("MM/DD/YYYY")}}</p>
-                <p v-if="data.context">Context : <a class="linkCard" :href="data.videoUrl" target="blank">"{{data.context}}"</a></p>
+                <p v-if="data.context">Context: "{{data.context}}"</p>
                 <p v-if="data.timeStamp">Timestamp: <a class="linkCard" :href="data.videoUrl" target="blank">"{{new Date(data.timeStamp * 1000).toISOString().substr(11, 8)}}"</a></p>
               </div>
               <div class="col-md-6 d-sm-block d-md-none" style="padding-top: 20px !important">
                 <p class="titleCardSm">Title:<a class="linkCard" :href="data.videoUrl" target="blank"> {{data.title}}</a></p>
                 <p class="titleCardSm">Channel: {{data.uploader}}</p>
-                <p class="titleCardSm">Uploaded on : {{data.dataUpload | moment("MM/DD/YYYY")}}</p>
-                <p class="titleCardSm" v-if="data.context">Context : <a class="linkCard" :href="data.videoUrl" target="blank">"{{data.context}}"</a></p>
+                <p class="titleCardSm">Uploaded on: {{data.dataUpload | moment("MM/DD/YYYY")}}</p>
+                <p class="titleCardSm" v-if="data.context">Context: "{{data.context}}"</p>
                 <p class="titleCardSm" v-if="data.timeStamp">Timestamp: <a class="linkCard" :href="data.videoUrl" target="blank">"{{new Date(data.timeStamp * 1000).toISOString().substr(11, 8)}}"</a></p>
               </div>
             </div>
         </div>
         <div  class="row py-4">
-        <div class="col-md-12 d-none d-lg-block">
+        <div class="col-md-12 d-none d-lg-block textMenuButtons">
           <h5 v-if="formCaption && formTitle" class="text-center">Found {{totalResults}} results for "{{formCaption}}" divided into {{totalPages2}} pages. </h5>
           <h5 v-if="formCaption && !formTitle" class="text-center">Found {{totalResults}} results for "{{formCaption}}" divided into {{totalPages2}} pages. </h5>
           <h5 v-if="formTitle && !formCaption" class="text-center">Found {{totalResults}} results for "{{formTitle}}" divided into {{totalPages2}} pages. </h5>
         </div>
-        <div class="col-sm-12  d-sm-block d-md-none">
+        <div class="col-sm-12  d-sm-block d-md-none textMenuButtons">
           <p v-if="formCaption && formTitle" class="text-center paraInfo">{{totalResults}} results  for "{{formCaption}}" in {{totalPages2}} pages. </p>
           <p v-if="formCaption && !formTitle" class="text-center paraInfo">{{totalResults}} results  for "{{formCaption}}" in {{totalPages2}} pages. </p>
           <p v-if="formTitle && !formCaption" class="text-center paraInfo">{{totalResults}} results  for "{{formTitle}}" in {{totalPages2}} pages.</p>
@@ -78,40 +78,45 @@
             <span class="text-center navButton pl-4">
               <button class="btn" :disabled='isPreviousDisable' @click="firstPage"><v-icon name="angle-double-left" scale="2"/></button>
               <button class="btn" :disabled='isPreviousDisable' @click="previousPage"><v-icon name="angle-left" scale="2"/></button>
-              <span class="slide-font">Page {{currentPageServer}} </span>
+              <span class="slide-font textMenuButtons">Page {{currentPageServer}} </span>
               <button class="btn" :disabled='isNextDisable' @click="nextPage"><v-icon name="angle-right" scale="2"/></button>
               <button class="btn" @click="lastPage" :disabled='isNextDisable'><v-icon name="angle-double-right" scale="2"/></button>
             </span>
-              <span class="navButton"><input type="number" @change="noNegativeNumber" name="pin" maxlength="3" size="3" v-model="selectedPageServer" class="inputNumber">
-              <button @click="goToPageServer"><v-icon name="search" scale="1"/></button></span>
+              <span class="navButton  spanInput"><input @focus="checkInInput" @blur="checkOutInput" type="number" @change="noNegativeNumber" name="pin" maxlength="3" size="3" v-model="selectedPageServer" class="inputNumber">
+              <button :disabled="isInputEmpty" class="buttonSearch" @click="goToPageServer"><v-icon :class="{searchIconDisabled:isInputEmpty}" name="search" scale="1"/></button></span>
           </div> 
           <div class="col-sm-12  pb-2 d-sm-block d-md-none" >
             <div class="text-center navButtonsm ">
               <button class="btn" :disabled='isPreviousDisable' @click="firstPage"><v-icon name="angle-double-left" scale="2"/></button>
               <button class="btn" :disabled='isPreviousDisable' @click="previousPage"><v-icon name="angle-left" scale="2"/></button>
-              <span class="paraInfo">Page {{currentPageServer}}</span>
+              <span class="paraInfo textMenuButtons">Page {{currentPageServer}}</span>
               <button class="btn" :disabled='isNextDisable' @click="nextPage"><v-icon name="angle-right" scale="2"/></button>
               <button class="btn" @click="lastPage" :disabled='isNextDisable'><v-icon name="angle-double-right" scale="2"/></button>
-              <span class="navButtonsm"><input type="number" @change="noNegativeNumber" class="inputSearch inputSearchSm" name="pin" maxlength="3" size="3" v-model="selectedPageServer">
-              <button @click="goToPageServer"><v-icon name="search" scale="1"/></button></span>
+              <span class="navButtonsm spanInputSm"><input @focus="checkInInput" @blur="checkOutInput" type="number" @change="noNegativeNumber" class="inputSearch inputSearchSm" name="pin" maxlength="3" size="3" v-model="selectedPageServer">
+              <button :disabled="isInputEmpty" class="buttonSearch" @click="goToPageServer"><v-icon :class="{searchIconDisabled:isInputEmpty}" name="search" scale="1"/></button></span>
             </div>
           </div> 
         </div> 
-        <b-button @click="resetar" class="resetButton" block variant="primary">New Search</b-button>   
+        <b-button id="down" @click="resetar" class="resetButton" block variant="primary">New Search</b-button>   
       </div>
-      <div class="d-sm-block d-md-none">
-        <br><br><br>
-      </div>
+      
       </div>
       </div>
       <div v-else class="row py-4">
-        <div class="col-md-11 py-5">
-           <h1 class="text-center d-none d-lg-block" >Nothing Found...Sorry <v-icon name="frown" scale="3"/></h1>
-          <h4 class="text-center d-sm-block d-md-none py-3">Nothing Found...Sorry <v-icon name="frown" scale="2"/></h4>
+        <div class="col-md-11 py-5 text-dark">
+           <h1 class="text-center d-none d-lg-block" >Nothing Found</h1>
+          <h4 class="text-center d-sm-block d-md-none py-3">Nothing Found</h4>
            <b-button @click="resetar" class="resetButton" block variant="primary">New Search</b-button>   
         </div>
       </div>
-     
+     <div v-if="showScrollButton" class="d-none d-lg-block">
+       <a v-scroll-to="'#up'" class="btn bottomButtonTop"><v-icon name="angle-up" scale="3"/></a>
+        <a v-scroll-to="'#down'" class="btn bottomButtonBottom"><v-icon name="angle-down" scale="3"/></a>
+     </div>
+     <div v-if="showScrollButton" class="d-sm-block d-md-none">
+       <a  v-scroll-to="'#up'"  class="btn bottomButtonTopSm"><v-icon name="angle-up" scale="2"/></a>
+        <a v-scroll-to="'#down'" class="btn bottomButtonBottomSm"><v-icon name="angle-down" scale="2"/></a>
+     </div>
     </div>
 </template>
 <script>
@@ -121,11 +126,12 @@ export default {
    components:{
      Loading
    },
-  props:['info2','page','limit','formTitle','formCaption','selected','formDateFrom','formDateEnd','totalPages2','urlFragment','totalResults'],
+  props:['info2','page','limit','formTitle','formCaption','selected','dateFrom','dateEnd','totalPages2','urlFragment','totalResults'],
  data(){
    return{
      info: [],
       isLoading: false,
+      showScrollButton: true,
       nextPageServer: this.page + 1,
        previousPageServer:null,
       totalPagesServer: null,
@@ -133,19 +139,21 @@ export default {
       selectedPageServer:'',
       isNextDisable: false,
       isPreviousDisable: false,
-      isOnePage: true
+      isOnePage: true,
+      isInputEmpty: true
    }
  },
  methods:{
    nextPage(){
       this.isLoading = true
+      this.showScrollButton = false
        console.log(this.selected)
       axios.post(`/coders/${this.urlFragment}`,{
           legenda: this.formCaption,
           title:this.formTitle,
           selected: this.selected,
-          dateFrom: this.formDateFrom,
-          dateEnd: this.formDateEnd
+          dateFrom: this.dateFrom,
+          dateEnd: this.dateEnd
         },{params:{
           page: this.nextPageServer,
           limit: this.limit
@@ -154,6 +162,7 @@ export default {
            this.info2 = data.data.data
            this.totalPagesServer = data.data.totalPages  
             this.isLoading = false
+            this.showScrollButton = true
             this.previousPageServer = data.data.previousPage
              this.selectedPageServer = ''
              this.isNextDisable = false
@@ -172,17 +181,17 @@ export default {
                this.isNextDisable = false
               this.isPreviousDisable = false
             }
-         
         })
    },
    previousPage(){
       this.isLoading = true
+      this.showScrollButton = false
       axios.post(`/coders/${this.urlFragment}`,{
           legenda: this.formCaption,
           title:this.formTitle,
           selected: this.selected,
-          dateFrom: this.formDateFrom,
-          dateEnd: this.formDateEnd
+          dateFrom: this.dateFrom,
+          dateEnd: this.dateEnd
         },{params:{
           page: this.previousPageServer,
           limit: this.limit
@@ -192,6 +201,7 @@ export default {
            this.totalPagesServer = data.data.totalPages
            this.nextPageServer = data.data.nextPage
             this.isLoading = false
+            this.showScrollButton = true
              this.currentPageServer =1
              this.selectedPageServer = ''
               this.isNextDisable = false
@@ -211,12 +221,13 @@ export default {
    },
    firstPage(){
       this.isLoading = true
+      this.showScrollButton = false
       axios.post(`/coders/${this.urlFragment}`,{
           legenda: this.formCaption,
           title:this.formTitle,
           selected: this.selected,
-          dateFrom: this.formDateFrom,
-          dateEnd: this.formDateEnd
+          dateFrom: this.dateFrom,
+          dateEnd: this.dateEnd
         },{params:{
           page: 1,
           limit: this.limit
@@ -226,6 +237,7 @@ export default {
            this.totalPagesServer = data.data.totalPages
            this.nextPageServer = data.data.nextPage
            this.isLoading = false
+           this.showScrollButton = true
            this.currentPageServer =1
             this.previousPageServer = 1
             this.isNextDisable = false
@@ -235,12 +247,13 @@ export default {
    },
    lastPage(){
        this.isLoading = true
+       this.showScrollButton = false
       axios.post(`/coders/${this.urlFragment}`,{
           legenda: this.formCaption,
           title:this.formTitle,
           selected: this.selected,
-          dateFrom: this.formDateFrom,
-          dateEnd: this.formDateEnd
+          dateFrom: this.dateFrom,
+          dateEnd: this.dateEnd
         },{params:{
           page: this.totalPages2,
           limit: this.limit
@@ -252,18 +265,19 @@ export default {
           this.nextPageServer = this.totalPagesServer 
           this.currentPageServer = this.nextPageServer
           this.isLoading = false
+          this.showScrollButton = true
           this.isNextDisable = true
           this.isPreviousDisable = false
         })
    },
   goToPageServer(){
     this.isLoading = true
+    this.showScrollButton = false
     if(parseInt(this.selectedPageServer) >= this.totalPages2){
           this.selectedPageServer = this.totalPages2
           this.nextPageServer = this.totalPages2
           this.isNextDisable = true
           this.isPreviousDisable = false
-            
           }else if(parseInt(this.selectedPageServer)<= 1){
             this.selectedPageServer = 1
             this.previousPageServer = 1
@@ -279,14 +293,16 @@ export default {
           legenda: this.formCaption,
           title:this.formTitle,
           selected: this.selected,
-          dateFrom: this.formDateFrom,
-          dateEnd: this.formDateEnd
+          dateFrom: this.dateFrom,
+          dateEnd: this.dateEnd
         },{params:{
           page: this.selectedPageServer,
           limit: this.limit
         }})
         .then((data)=>{
           this.isLoading = false
+          this.showScrollButton = true
+          this.isInputEmpty = true,
           this.info2 = data.data.data
           this.totalPagesServer = data.data.totalPages
           this.nextPageServer = data.data.nextPage
@@ -305,6 +321,16 @@ export default {
         if(this.selectedPageServer < 1){
           this.selectedPageServer = 1
         }
+      },
+      checkInInput(){
+        this.isInputEmpty = false
+      },
+      checkOutInput(){
+        if(this.selectedPageServer){
+          this.isInputEmpty = false
+        }else{
+          this.isInputEmpty = true
+        }
       }
    
  },
@@ -313,7 +339,7 @@ export default {
    this.isOnePage = false
  }
  this.isPreviousDisable = true
+ this.isInputEmpty = true
  }
- 
 }
 </script>
