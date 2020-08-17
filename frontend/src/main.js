@@ -10,6 +10,7 @@ import { faTelegram, faWhatsapp, faGithub } from '@fortawesome/free-brands-svg-i
 import Icon from 'vue-awesome/components/Icon'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
+import VueScrollTo from 'vue-scrollto'
 
 library.add(faTelegram)
 library.add(faWhatsapp)
@@ -20,9 +21,10 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
+Vue.use(VueScrollTo)
 Vue.use(require('vue-moment'));
 
-//axios.defaults.baseURL = 
+axios.defaults.baseURL = 
 new Vue({
   router,
   render: h => h(App)
