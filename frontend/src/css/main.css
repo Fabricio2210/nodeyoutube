@@ -13,9 +13,9 @@
   }
  
   .navButton button{
-    background-color: #2d5bab;
+    background-color: #F8F9FA !important;
     font-size: 1.5em;
-    color: seashell;
+    color: black;
     margin: 5px;
     border: none;
   }
@@ -24,9 +24,9 @@
     font-size: 1.5em;
   }
   .navButtonsm button{
-    background-color: #2d5bab;
+    
     font-size: 1em;
-    color: seashell;
+    color: black;
     margin: 2px;
     border: none;
     padding-left: 5% !important;
@@ -40,6 +40,9 @@
   .resetButton{
     background-color: #2d5bab !important;
     border: 1px solid white !important;
+  }
+  .resetButton:hover{
+    background-color: #1f3f77 !important;
   }
   .subTitulo{
     font-family: 'Anton', sans-serif !important;
@@ -56,7 +59,7 @@
  }
  
  .linkCard{
-   color: #18325f;
+   color: #0c1930;
  }
  .linkCard:hover{
   color: seashell;
@@ -107,7 +110,7 @@ input[type=number] {
 .bordaForm{
   border: 5px solid #18325f;
   border-radius: 10px;
-  background-color: #6699cc;
+  background-color: #4985c2;
  
 }
 input{
@@ -126,7 +129,87 @@ select{
   }
   .inputSearch{
     font-size: 0.7rem !important;
+    background-color: transparent !important;
   }
   .inputSearchSm{
     width: 20% !important;
+    background-color: transparent !important;
+  }
+  .spanInput{
+    margin-left: 5px !important;
+  }
+  .spanInputSm{
+    margin-left: 45px !important;
+  }
+  .bottomButtonTop{
+    position: fixed; 
+    bottom: 80px; 
+    right: 20px;
+    color: white !important;
+    background-color: #2d5bab  !important;
+    border: 1px solid white !important;
+    border-radius: 15px !important;
+  }
+  .bottomButtonBottom{
+    position: fixed; 
+    bottom: 5px; 
+    right: 20px;
+    color: white !important;
+    background-color: #2d5bab  !important;
+    border: 1px solid white !important;
+    border-radius: 15px !important;
+  }
+  .bottomButtonTop:hover{
+    background-color: #1f3f77 !important;
+  }
+  .bottomButtonBottom:hover{
+    background-color: #1f3f77 !important;
+  }
+  .bottomButtonTop:focus{
+    background-color: #1f3f77 !important;
+  }
+  .bottomButtonBottom:focus{
+    background-color: #1f3f77 !important;
+  }
+  .bottomButtonTopSm{
+    position: fixed; 
+    bottom: 55px; 
+    right: 5px;
+    color: white !important;
+    background-color: #2d5bab  !important;
+    border: 1px solid white !important;
+    border-radius: 15px !important;
+  }
+  .bottomButtonBottomSm{
+    position: fixed; 
+    bottom: 5px; 
+    right: 5px;
+    color: white !important;
+    background-color: #2d5bab  !important;
+    border: 1px solid white !important;
+    border-radius: 15px !important;
+  }
+  .bottomButtonTopSm:hover{
+    background-color: #1f3f77 !important;
+  }
+  .bottomButtonBottomSm:hover{
+    background-color: #1f3f77 !important;
+  }
+  .bottomButtonTopSm:focus{
+    background-color: #1f3f77 !important;
+  }
+  .bottomButtonBottomSm:focus{
+    background-color: #1f3f77 !important;
+  }
+  .textMenuButtons{
+    color: black !important;
+  }
+  .buttonSearch{
+    background-color: transparent !important;
+  }
+  .center{
+    padding-top: 10%;
+  }
+  .searchIconDisabled{
+    opacity: 0.5 !important;
   }
