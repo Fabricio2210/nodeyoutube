@@ -1,27 +1,36 @@
 <template>
-  <div class="about animated fadeIn">
+  <div class="about animated fadeIn text-light">
     <b-row>
       <b-col md="12"  class="top-padding">
-        <br class="py-2">
+        <br class="py-2 d-sm-block d-md-none">
         <div class="bordaForm">
-          <h2 class="text-center aboutHeader">Tips</h2>
+          <h2 class="text-center aboutHeader pb-1">ABOUT</h2>
+          <div class="paddingBottomDiv d-none d-lg-block">
+            <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>The developers archives is a search engine from a list of youtube channels about programing.</p>
+            <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>You can search by subtitles or by the title of the videos.</p>
+          </div>
+          <div class="paddingBottomDivsm d-sm-block d-md-none">
+             <p class="text-left"><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>The developers archives is a search engine from a list of youtube channels about programing.</p>
+            <p class="text-left"><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>You can search by subtitles or by the title of the videos.</p>
+          </div>
+        </div>
+        <div class="bordaForm my-3">
+          <h2 class="text-center aboutHeader pb-1">TIPS</h2>
           <div class="paddingBottomDiv d-none d-lg-block">
             <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>The database is built from YouTube's automatically generated captions so there will be mistakes, misspellings etc.</p>
             <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>Try searching for what you think would be the most common spelling based on the sound of the word.</p>
             <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>Updates will be made at least twice a week.</p>
-            <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>The search is case sensitive.</p>
             <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>Common words like "can" or "the" can delay the search. Try to be as specific as possible.</p>
           </div>
           <div class="paddingBottomDivsm d-sm-block d-md-none">
             <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>The database is built from YouTube's automatically generated captions so there will be mistakes, misspellings etc.</p>
             <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>Try searching for what you think would be the most common spelling based on the sound of the word.</p>
             <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>Updates will be made at least twice a week.</p>
-            <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>The search is case sensitive.</p>
             <p><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/>Common words like "can" or "the" can delay the search. Try to be as specific as possible.</p>
           </div>
         </div>
         <div class="bordaForm my-3">
-          <h2 class="text-center aboutHeader">Channel List</h2>
+          <h2 class="text-center aboutHeader pb-1">CHANNEL LIST</h2>
           <b-row>
             <b-col md="3">
             <p class="pl-5"><v-icon name="laptop-code" flip="horizontal" scale="2" class="pb-2"/><a class="linkCard" href="https://www.youtube.com/user/TechGuyWeb">Traversy Media</a></p>
@@ -71,7 +80,7 @@
           </b-row>
         </div>
          <div class="bordaForm d-none d-lg-block my-3">
-          <h2 class="text-center aboutHeader">Contact</h2>
+          <h2 class="text-center aboutHeader">CONTACT</h2>
           <b-row>
             <b-col md="6">
               <h4 class="pl-4"><v-icon name="envelope" scale="2"/> fabricio22101985@gmail.com</h4>
@@ -86,7 +95,7 @@
           </b-row>
         </div>
          <div class="bordaForm d-sm-block d-md-none my-3">
-          <h2 class="text-center aboutHeader">Contact</h2>
+          <h2 class="text-center aboutHeader">CONTACT</h2>
           <b-row>
             <b-col md="6">
               <h5 class="pl-2"><v-icon name="envelope" scale="2"/> fabricio22101985@gmail.com</h5>
