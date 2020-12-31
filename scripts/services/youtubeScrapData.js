@@ -1,7 +1,7 @@
 const fs = require('fs');
 const getSubtitles = require('youtube-captions-scraper').getSubtitles;
-const UserData = require('./helpers/VideoData/VideoData')
-const SubtitleData = require('./helpers/SubtitleData/SubTilteData')
+const videoData = require('./helpers/VideoData/VideoData')
+const subtitleData = require('./helpers/SubtitleData/SubTilteData')
 
 let counter = 0
 
@@ -49,12 +49,12 @@ const parseSubs = (id,channel_id,channel_url,title,uploader,upload_date,thumbnai
   try{
     subtitles.forEach((dataSub) =>{
       let subtitleId = `${id}${dataSub.start}${dataSub.dur}`
-      SubtitleData(dataSub.start,dataSub.dur,dataSub.text,subtitleId,id,channel_id,channel_url,title,uploader,upload_date,thumbnail,subject)
+      subtitleData(dataSub.start,dataSub.dur,dataSub.text,subtitleId,id,channel_id,channel_url,title,uploader,upload_date,thumbnail,subject)
     })
-    UserData(id,channel_id,channel_url,title,uploader,upload_date,thumbnail,subject)
+    videoData(id,channel_id,channel_url,title,uploader,upload_date,thumbnail,subject)
   }catch(error){
     if(error.message == `Could not find captions for the video: ${id}`){
-      UserData(id,channel_id,channel_url,title,uploader,upload_date,thumbnail,subject)
+      videoData(id,channel_id,channel_url,title,uploader,upload_date,thumbnail,subject)
    }
    console.log(`Error getting captions: ${error.message}`);
   }
