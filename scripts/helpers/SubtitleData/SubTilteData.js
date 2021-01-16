@@ -1,4 +1,4 @@
-const SubtitleData = require('../../../db/schemas/subtitleSchema')
+const SubtitleData = require('../../db/schemas/subtitleSchema')
 const dataFormat = (start,dur,text,subtitleId,videoId,channelId,channelUrl,title,uploader,dataUpload,thumbnail,subject,date) =>{
     let dateFixed = `${dataUpload.substring(0,4)}-${dataUpload.substring(4,6)}-${dataUpload.substring(6,8)}`
     let subtitleData = new SubtitleData({

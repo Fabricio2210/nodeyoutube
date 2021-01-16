@@ -1,4 +1,5 @@
+require('dotenv').config();
 module.exports ={
-   //your key here
- 
+   mongoURI: `${process.env.KEY}` 
 }
+

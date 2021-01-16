@@ -189,7 +189,8 @@
         .then((data)=>{
           this.info = data.data.data
           this.$emit('info-video',this.info,this.page,this.limit,this.form.title,this.form.caption,this.selected,this.form.dateFrom,this.form.dateEnd,data.data.totalPages,data.data.totalResults,'title')
-           this.isLoading = false   
+           this.isLoading = false 
+           console.log(data.data.totalResults)  
         })
         .catch((erro)=>{
         this.descricao = erro.response.data.msg;

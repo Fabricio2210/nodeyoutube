@@ -11,11 +11,11 @@ app.use(bodyParser.json());
 const rotasDetractor = require('./rotas/detractors');
 const rotasCoders = require('./rotas/coders')
 const rotasRedlettermedia = require('./rotas/redlettermedia')
-const rotasLogs = require('./rotas/logs')
+//const rotasLogs = require('./rotas/logs')
 app.use(rotasDetractor);
 app.use(rotasCoders);
 app.use(rotasRedlettermedia);
-app.use(rotasLogs)
+//app.use(rotasLogs)
 
 const port = process.env.PORT || 3000;
 
