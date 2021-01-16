@@ -57,7 +57,7 @@ const defaultRouter = (router, subject) => {
     let count = await countDocuments(query, SubtitleData, totalResults);
     if (!req.body.legenda) {
       res.status(500).json({
-        msg: "Required field is empty stoopid!",
+        msg: "Required field is empty!",
       });
     } else {
       let rawData = await videoRawInfo(SubtitleData, query, limit, startIndex);
