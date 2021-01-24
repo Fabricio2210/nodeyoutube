@@ -13,7 +13,7 @@ const defaultRouter = (router, subject) => {
   router.post(`/${subject}/title`, async (req, res) => {
     let page = parseInt(req.query.page);
     let limit = parseInt(req.query.limit);
-    let query = queryTitle(req, "coders");
+    let query = queryTitle(req, subject);
     let {
       startIndex,
       endIndex,
@@ -46,7 +46,7 @@ const defaultRouter = (router, subject) => {
   router.post(`/${subject}/subtitle`, async (req, res) => {
     let page = parseInt(req.query.page);
     let limit = parseInt(req.query.limit);
-    let query = querySubtitle(req, "coders");
+    let query = querySubtitle(req, subject);
     let {
       startIndex,
       endIndex,
