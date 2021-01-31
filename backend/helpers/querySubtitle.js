@@ -1,7 +1,7 @@
 const queryOptions = (req, subject) => {
   let query = {
     subject,
-    title: { $regex: req.body.legenda, $options: "i" },
+   "text":{ $regex: req.body.legenda, $options: "i" }
   };
 
   if (req.body.title) {
