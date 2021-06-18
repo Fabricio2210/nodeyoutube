@@ -34,7 +34,7 @@
     "mongoose-unique-validator": "^2.0.3",
     "node-webvtt": "^1.8.0",
     "nodemon": "^2.0.2",
-    "striptags": "^3.1.1",
+    "striptags": "^3.2.0",
     "uuidv4": "^6.0.8",
     "webvtt": "0.0.2",
     "youtube-captions-scraper": "^1.0.3",
