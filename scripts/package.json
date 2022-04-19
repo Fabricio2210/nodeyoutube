@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@joegesualdo/get-youtube-subtitles-node": "^0.1.0",
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "axios": "^0.21.1",
     "chalk": "^3.0.0",
     "clear": "^0.1.0",
