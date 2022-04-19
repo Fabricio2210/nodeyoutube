@@ -5,14 +5,14 @@
       <div v-if="!isLoading">
       <div class="row py-4">
         <div class="col-md-12 d-none d-lg-block textMenuButtons">
-          <h5 v-if="formCaption && formTitle" class="text-center">Found {{totalResults}} results for "{{formCaption}}" divided into {{totalPages2}} pages. </h5>
-           <h5 v-if="formCaption && !formTitle" class="text-center">Found {{totalResults}} results for "{{formCaption}}" divided into {{totalPages2}} pages. </h5>
-          <h5 v-if="formTitle && !formCaption" class="text-center">Found {{totalResults}} results for "{{formTitle}}" divided into {{totalPages2}} pages. </h5>
+          <h5 v-if="formCaption && formTitle" class="text-center">Found {{totalResults}} results for "{{formCaption}}" divided into {{totalPages2 -1}} pages. </h5>
+           <h5 v-if="formCaption && !formTitle" class="text-center">Found {{totalResults}} results for "{{formCaption}}" divided into {{totalPages2 -1}} pages. </h5>
+          <h5 v-if="formTitle && !formCaption" class="text-center">Found {{totalResults}} results for "{{formTitle}}" divided into {{totalPages2 -1}} pages. </h5>
         </div>
         <div class="col-sm-12 pt-5  d-sm-block d-md-none textMenuButtons">
-           <p v-if="formCaption && formTitle" class="text-center paraInfo">{{totalResults}} results  for "{{formCaption}}" in {{totalPages2}} pages. </p>
-          <p v-if="formCaption && !formTitle" class="text-center paraInfo">{{totalResults}} results  for "{{formCaption}}" in {{totalPages2}} pages. </p>
-          <p v-if="formTitle && !formCaption" class="text-center paraInfo">{{totalResults}} results  for "{{formTitle}}" in {{totalPages2}} pages.</p>
+           <p v-if="formCaption && formTitle" class="text-center paraInfo">{{totalResults}} results  for "{{formCaption}}" in {{totalPages2 -1}} pages. </p>
+          <p v-if="formCaption && !formTitle" class="text-center paraInfo">{{totalResults}} results  for "{{formCaption}}" in {{totalPages2 -1}} pages. </p>
+          <p v-if="formTitle && !formCaption" class="text-center paraInfo">{{totalResults}} results  for "{{formTitle}}" in {{totalPages2 -1}} pages.</p>
         </div>
         <div v-if="isOnePage">
           <div class="col-md-12 offset-md-6 d-none d-lg-block pl-5">
@@ -51,14 +51,14 @@
                 <p>Channel: {{data.uploader}}</p>
                 <p>Uploaded on : {{data.dataUpload | moment("MM/DD/YYYY")}}</p>
                 <p v-if="data.context">Context: "{{data.context}}"</p>
-                <p v-if="data.timeStamp">Timestamp: <a class="linkCard" :href="data.videoUrl" target="blank">"{{new Date(data.timeStamp * 1000).toISOString().substr(11, 8)}}"</a></p>
+                <p v-if="data.timeStamp">Timestamp: <a class="linkCard" :href="data.videoUrl" target="blank">"{{data.timeStamp}}"</a></p>
               </div>
               <div class="col-md-6 d-sm-block d-md-none" style="padding-top: 20px !important">
                 <p class="titleCardSm">Title:<a class="linkCard" :href="data.videoUrl" target="blank"> {{data.title}}</a></p>
                 <p class="titleCardSm">Channel: {{data.uploader}}</p>
                 <p class="titleCardSm">Uploaded on: {{data.dataUpload | moment("MM/DD/YYYY")}}</p>
                 <p class="titleCardSm" v-if="data.context">Context: "{{data.context}}"</p>
-                <p class="titleCardSm" v-if="data.timeStamp">Timestamp: <a class="linkCard" :href="data.videoUrl" target="blank">"{{new Date(data.timeStamp * 1000).toISOString().substr(11, 8)}}"</a></p>
+                <p class="titleCardSm" v-if="data.timeStamp">Timestamp: <a class="linkCard" :href="data.videoUrl" target="blank">"{{data.timeStamp}}"</a></p>
               </div>
             </div>
         </div>
@@ -126,7 +126,7 @@ export default {
    components:{
      Loading
    },
-  props:['info2','page','limit','formTitle','formCaption','selected','dateFrom','dateEnd','totalPages2','urlFragment','totalResults'],
+  props:['info2','page','limit','formTitle','formCaption','selected','dateFrom','dateEnd','totalPages2','urlFragment','totalResults','searchParams'],
  data(){
    return{
      info: [],
@@ -147,7 +147,6 @@ export default {
    nextPage(){
       this.isLoading = true
       this.showScrollButton = false
-       console.log(this.selected)
       axios.post(`/coders/${this.urlFragment}`,{
           legenda: this.formCaption,
           title:this.formTitle,
@@ -156,7 +155,8 @@ export default {
           dateEnd: this.dateEnd
         },{params:{
           page: this.nextPageServer,
-          limit: this.limit
+          limit: this.limit,
+          searchParams: this.searchParams
         }})
         .then((data)=>{
            this.info2 = data.data.data
@@ -168,8 +168,8 @@ export default {
              this.isNextDisable = false
               this.isPreviousDisable = false
              this.totalPagesServer = data.data.totalPages
-            if(this.nextPageServer >= data.data.totalPages){
-              this.nextPageServer = data.data.totalPages
+            if(this.nextPageServer >= data.data.totalPages -1){
+              this.nextPageServer = data.data.totalPages -1
               this.currentPageServer = this.nextPageServer
               this.selectedPageServer = ''
               this.isNextDisable = true
@@ -194,7 +194,8 @@ export default {
           dateEnd: this.dateEnd
         },{params:{
           page: this.previousPageServer,
-          limit: this.limit
+          limit: this.limit,
+          searchParams: this.searchParams
         }})
         .then((data)=>{
            this.info2 = data.data.data
@@ -202,7 +203,7 @@ export default {
            this.nextPageServer = data.data.nextPage
             this.isLoading = false
             this.showScrollButton = true
-             this.currentPageServer =1
+             this.currentPageServer = 1
              this.selectedPageServer = ''
               this.isNextDisable = false
               this.isPreviousDisable = false
@@ -230,7 +231,8 @@ export default {
           dateEnd: this.dateEnd
         },{params:{
           page: 1,
-          limit: this.limit
+          limit: this.limit,
+          searchParams: this.searchParams
         }})
         .then((data)=>{
            this.info2 = data.data.data
@@ -238,7 +240,7 @@ export default {
            this.nextPageServer = data.data.nextPage
            this.isLoading = false
            this.showScrollButton = true
-           this.currentPageServer =1
+           this.currentPageServer = 1
             this.previousPageServer = 1
             this.isNextDisable = false
             this.isPreviousDisable = true
@@ -255,15 +257,16 @@ export default {
           dateFrom: this.dateFrom,
           dateEnd: this.dateEnd
         },{params:{
-          page: this.totalPages2,
-          limit: this.limit
+          page: this.totalPages2 -1,
+          limit: this.limit,
+          searchParams: this.searchParams
         }})
         .then((data)=>{
           this.info2 = data.data.data
           this.totalPagesServer = data.data.totalPages
           this.previousPageServer = data.data.previousPage
           this.nextPageServer = this.totalPagesServer 
-          this.currentPageServer = this.nextPageServer
+          this.currentPageServer = this.nextPageServer -1
           this.isLoading = false
           this.showScrollButton = true
           this.isNextDisable = true
@@ -296,8 +299,9 @@ export default {
           dateFrom: this.dateFrom,
           dateEnd: this.dateEnd
         },{params:{
-          page: this.selectedPageServer,
-          limit: this.limit
+          page: this.selectedPageServer -1,
+          limit: this.limit,
+          searchParams: this.searchParams
         }})
         .then((data)=>{
           this.isLoading = false
@@ -306,9 +310,8 @@ export default {
           this.info2 = data.data.data
           this.totalPagesServer = data.data.totalPages
           this.nextPageServer = data.data.nextPage
-          this.currentPageServer = this.selectedPageServer
+          this.currentPageServer = parseInt(this.selectedPageServer) -1
           this.previousPageServer = data.data.previousPage
-          console.log(this.currentPageServer)
           this.selectedPageServer = ''
           
         })
@@ -335,6 +338,7 @@ export default {
    
  },
  mounted(){
+
  if(this.info2.length < this.limit){
    this.isOnePage = false
  }

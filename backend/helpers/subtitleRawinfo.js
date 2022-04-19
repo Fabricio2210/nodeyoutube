@@ -5,9 +5,9 @@ const client = new elasticsearch.Client({
   apiVersion: "7.2", // use the same version of your Elasticsearch instance
 });
 
-const videoRawInfo = async (query, page,limit) => {
+const subtitleRawInfo = async (query, page,limit) => {
   client.indices.create({
-    index: 'titleschemas',
+    index: 'subtitleschemas',
     body: {
       settings: {
         index: {
@@ -18,8 +18,8 @@ const videoRawInfo = async (query, page,limit) => {
     }
   })
   await client.indices.putMapping({
-    index: "titleschemas",
-    type: "titleschemas",
+    index: "subtitleschemas",
+    type: "subtitleschemas",
     includeTypeName: true,
     body: {
       properties: {
@@ -28,19 +28,23 @@ const videoRawInfo = async (query, page,limit) => {
         },
         title: {
           type: "text"
-        }
+        },
+        text: {
+            type: "text"
+          }
       },
     },
   });
 
   const response = await client.search({
-    index: "titleschemas",
-    type: "titleschemas",
+    index: "subtitleschemas",
+    type: "subtitleschemas",
     from: page * limit + 1,
     size: limit,
+    explain: false,
     body: query,
   });
   return  {data:response.hits.hits, count:response.hits.total.value}
 };
 
-module.exports = videoRawInfo;
+module.exports = subtitleRawInfo;

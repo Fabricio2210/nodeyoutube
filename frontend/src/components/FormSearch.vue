@@ -46,6 +46,15 @@
               class="my-2"
                :class="[{animated:isError},{shake: isError}]"
             ></b-form-input> 
+             <b-form-group label="Select the type of title search">
+              <b-form-radio-group 
+                id="radio-group-1"
+                v-model="selected2"
+                :options="options2"
+                :aria-describedby="ariaDescribedby"
+                name="radio-options1"
+              ></b-form-radio-group>
+            </b-form-group>
             <b-form-select class="mb-3" v-model="selected" :options="options"></b-form-select>
             <b-row class="d-flex justify-content-between">
             <b-col md="6" class="mb-3">
@@ -78,7 +87,15 @@
             class="my-3"
             :class="[{animated:isError},{shake: isError}]"
           ></b-form-input>
-          
+                 <b-form-group label="Select the type of message search">
+      <b-form-radio-group
+        id="radio-group-2"
+        v-model="selected3"
+        :options="options3"
+        :aria-describedby="ariaDescribedby"
+        name="radio-options2"
+      ></b-form-radio-group>
+    </b-form-group>
           <b-form-input
             id="input-1"
             v-model="form.title"
@@ -144,6 +161,17 @@
           { value: 'Andre Madarang', text: 'Andre Madarang' },
           { value: 'Web Dev Simplified', text: 'Web Dev Simplified' },
         ],
+         selected2:'match',
+        options2:[
+          {value: 'match', text:'Match'},
+          {value: 'prefix', text:'Prefix'},
+          {value: 'fuzz', text:'Similar Matches'}
+        ],
+        selected3:"matchPhrase",
+         options3:[
+          {value: 'matchPhrase', text:'Match phrase'},
+          {value: 'matchPhrasePrefix', text:'Match Phrase Prefix'},
+        ],
         show: true,
         caption : false,
         bytitle: false,
@@ -154,7 +182,8 @@
         bytitleCheck: false,
         captionCheck: false,
         page: 1,
-        limit: 30
+        limit: 30,
+        searchParams: null
       }
     },
     components: {
@@ -183,14 +212,15 @@
           dateEnd: this.form.dateEnd
         },{params:{
           page: this.page,
-          limit: this.limit
+          limit: this.limit,
+          searchParams: this.selected2
         }}
         )
         .then((data)=>{
+          this.searchParams = this.selected2
           this.info = data.data.data
-          this.$emit('info-video',this.info,this.page,this.limit,this.form.title,this.form.caption,this.selected,this.form.dateFrom,this.form.dateEnd,data.data.totalPages,data.data.totalResults,'title')
-           this.isLoading = false 
-           console.log(data.data.totalResults)  
+          this.$emit('info-video',this.info,this.page,this.limit,this.form.title,this.form.caption,this.selected,this.form.dateFrom,this.form.dateEnd,data.data.totalPages,data.data.totalResults,'title',this.searchParams)
+           this.isLoading = false  
         })
         .catch((erro)=>{
         this.descricao = erro.response.data.msg;
@@ -227,11 +257,13 @@
           dateEnd: this.form.dateEnd
         },{params:{
           page: this.page,
-          limit: this.limit
+          limit: this.limit,
+          searchParams: this.selected3
         }})
         .then((data)=>{
+          this.searchParams = this.selected3
           this.info = data.data.data
-          this.$emit('info-video',this.info,this.page,this.limit,this.form.title,this.form.caption,this.selected,this.form.dateFrom,this.form.dateEnd,data.data.totalPages,data.data.totalResults,'subtitle')
+          this.$emit('info-video',this.info,this.page,this.limit,this.form.title,this.form.caption,this.selected,this.form.dateFrom,this.form.dateEnd,data.data.totalPages,data.data.totalResults,'subtitle',this.searchParams)
            this.isLoading = false
            
         })

@@ -1,10 +1,8 @@
-const VideoData = require("../db/schemas/youtubeDataSchema");
-const SubtitleData = require("../db/schemas/subtitleSchema");
 const paginationInfo = require("../helpers/paginationInfo.js");
 const queryTitle = require("../helpers/queryTitle");
 const querySubtitle = require("../helpers/querySubtitle");
-const countDocuments = require("../helpers/countDocuments");
 const videoRawInfo = require("../helpers/videoRawInfo");
+const subtitleRawInfo = require("../helpers/subtitleRawinfo")
 const videoTitleParseInfo = require("../helpers/videoTitleParseInfo");
 const videoSubtitleParseInfo = require("../helpers/videoSubtitleParseInfo");
 const videoAnswer = require("../helpers/videoAnswer");
@@ -15,30 +13,24 @@ const defaultRouter = (router, subject) => {
     let limit = parseInt(req.query.limit);
     let query = queryTitle(req, subject);
     let {
-      startIndex,
-      endIndex,
-      totalResults,
       nextPage,
       previousPage,
     } = paginationInfo(page, limit);
-    let count = await countDocuments(query, VideoData, totalResults);
     if (!req.body.title) {
       res.status(500).json({
         msg: "Required field is empty!",
       });
     } else {
-      let rawData = await videoRawInfo(VideoData, query, limit, startIndex);
-      let arrayDataVideo = videoTitleParseInfo(rawData);
+      let rawData = await videoRawInfo(query,page,limit,req);
+      let arrayDataVideo = videoTitleParseInfo(rawData.data);
       videoAnswer(
         res,
         arrayDataVideo,
-        startIndex,
-        endIndex,
         page,
-        count,
-        limit,
         nextPage,
         previousPage,
+        limit,
+        rawData.count
       );
     }
   });
@@ -48,30 +40,24 @@ const defaultRouter = (router, subject) => {
     let limit = parseInt(req.query.limit);
     let query = querySubtitle(req, subject);
     let {
-      startIndex,
-      endIndex,
-      totalResults,
       nextPage,
       previousPage,
     } = paginationInfo(page, limit);
-    let count = await countDocuments(query, SubtitleData, totalResults);
     if (!req.body.legenda) {
       res.status(500).json({
         msg: "Required field is empty!",
       });
     } else {
-      let rawData = await videoRawInfo(SubtitleData, query, limit, startIndex);
-      let arrayDataVideo = videoSubtitleParseInfo(rawData);
+      let rawData = await subtitleRawInfo(query,page,limit,req);
+      let arrayDataVideo = videoSubtitleParseInfo(rawData.data);
       videoAnswer(
         res,
         arrayDataVideo,
-        startIndex,
-        endIndex,
         page,
-        count,
-        limit,
         nextPage,
         previousPage,
+        limit,
+        rawData.count
       );
     }
   });

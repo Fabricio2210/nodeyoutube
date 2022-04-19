@@ -1,25 +1,33 @@
+const fs = require("fs");
+const fsPromises = fs.promises;
 const readFolder = require("../../helpers/youtubeScrapHelpers/readFolder");
-const readFile = require("../../helpers/youtubeScrapHelpers/readFile");
+const readVttFolder = require("../../helpers/youtubeScrapHelpers/readVtt");
 const parseDataFile = require("../../helpers/youtubeScrapHelpers/parseDataFile");
 const getSubs = require("../../helpers/youtubeScrapHelpers/getSubs");
-const parseSubs = require("../../helpers/youtubeScrapHelpers/parseSub");
-
-let counter = 0;
+const videoData = require ("../../helpers/VideoData/VideoData");
 
 const youtubeScrap = async (subject) => {
-  let folder = await readFolder(subject);
-  setInterval(async () => {
-    if (counter < folder.length) {
-      let file = await readFile(folder, subject, counter);
+
+  try{
+    let folder = await readFolder(subject);
+    let vttFolder =  await readVttFolder()
+
+    for await (files of folder){
+      const file = await fsPromises.readFile(`./${subject}/${files}`)
       let parseFile = await parseDataFile(file, subject);
       let {id,channel_id,channel_url,title,uploader,upload_date,thumbnail} = parseFile;
-      let subs = getSubs(id);
-      subs.then((subtitles) =>{
-        parseSubs(id,channel_id,channel_url,title,uploader,upload_date,thumbnail,subtitles,subject)
-      })
-      counter++;
+      let findVttFile = vttFolder.find(el => el === `${id}.en.txt`)
+      if(findVttFile === undefined){
+        videoData(id,channel_id,channel_url,title,uploader,upload_date,thumbnail,subject)
+        console.log("This video has no subtitles.")
+      }else{
+        await getSubs(id,channel_id,channel_url,title,uploader,upload_date,thumbnail,subject);
+      }
     }
-  }, 5000);
+  }catch(error){
+   console.log(error)
+  }
+  
 };
 
 module.exports = youtubeScrap;

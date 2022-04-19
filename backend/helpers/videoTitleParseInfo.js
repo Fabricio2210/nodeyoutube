@@ -1,7 +1,7 @@
 const videoTitleParseInfo = (arrayRawInfo) => {
   let arrayDataVideo = [];
   arrayRawInfo.forEach((dataVideo) => {
-    let { title, uploader, dataUpload, thumbnail, videoId } = dataVideo;
+    let { title, uploader, dataUpload, thumbnail, videoId } = dataVideo._source;
     let objectDataVideo = {
       title,
       uploader,
