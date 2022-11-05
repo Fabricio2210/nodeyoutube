@@ -24,7 +24,7 @@ Vue.use(BootstrapVue)
 Vue.use(VueScrollTo)
 Vue.use(require('vue-moment'));
 
-axios.defaults.baseURL = 'http://localhost:3000/'
+axios.defaults.baseURL = 'https://37d5-2804-14d-5c73-6bc4-28f0-8518-3ba7-59fa.sa.ngrok.io/'
 new Vue({
   router,
   render: h => h(App)

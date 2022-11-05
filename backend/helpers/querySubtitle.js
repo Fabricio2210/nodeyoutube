@@ -1,51 +1,19 @@
 const queryOptions = (req, subject) => {
-  let body = {
-    query: {
-      bool: {
-        must: [
-          {
-            match: {
-              subject: subject,
-            },
-          },
-        ],
-      },
-    },
-    sort: [{ date: "desc" }],
+  let query = {
+    subject,
+   "text":{ $regex: req.body.legenda, $options: "i" }
   };
-  if (req.body.legenda && req.query.searchParams === "matchPhrase") {
-    let query = {
-      match_phrase: {
-        text: req.body.legenda,
-      },
-    };
-    body.query.bool.must.push(query);
-  }
-  if (req.body.legenda && req.query.searchParams === "matchPhrasePrefix") {
-    let query = {
-      match_phrase_prefix: {
-        text: req.body.legenda,
-      },
-    };
-    body.query.bool.must.push(query);
+
+  if (req.body.title) {
+    query.title = { $regex: req.body.title, $options: "i" };
   }
   if (req.body.selected) {
-    let query = {
-      match: {
-        uploader: req.body.selected
-      }
-    }
-    body.query.bool.must.push(query)
+    query.uploader = req.body.selected;
   }
   if (req.body.dateFrom && req.body.dateEnd) {
-    let query = {
-      range: { date: { gte: req.body.dateFrom, lte: req.body.dateEnd } },
-    };
-    body.query.bool.must.push(query);
+    query.dataUpload = { $gte: req.body.dateFrom, $lte: req.body.dateEnd };
   }
-  console.log(req.body);
-  
-  return body;
+  return query;
+};
 
-}
 module.exports = queryOptions;

@@ -4,7 +4,7 @@
         <FormSearch class="animated fadeIn" @info-video="passData" v-if="ifNoData"/>
       </b-col>
       <b-col>
-        <TableContent v-if="ifData" :info2.sync="info" :page="page" :limit="limit" :formTitle="formTitle" :formCaption="formCaption" :selected="selected" :dateFrom="dateFrom" :dateEnd="dateEnd" :totalPages2="totalPages" :urlFragment="urlFragment" :totalResults="totalResults" :searchParams="searchParams" />
+        <TableContent v-if="ifData" :info2.sync="info" :page="page" :limit="limit" :formTitle="formTitle" :formCaption="formCaption" :selected="selected" :dateFrom="dateFrom" :dateEnd="dateEnd" :totalPages2="totalPages" :urlFragment="urlFragment" :totalResults="totalResults" />
       </b-col>
     
   </div>
@@ -35,13 +35,11 @@ export default {
       dateEnd: null,
       totalPages: null,
       totalResults: null,
-      urlFragment: null,
-      searchParams: null
+      urlFragment: null
     }
   },
   methods:{
     passData(...data){
-      console.log(...data)
       this.info = data[0];
       this.page = data[1];
       this.limit = data[2];
@@ -53,7 +51,6 @@ export default {
       this.totalPages = data[8],
       this.totalResults = data[9],
       this.urlFragment = data[10]
-      this.searchParams = data[11]
       this.ifNoData = false;
       this.ifData = true;
     }
