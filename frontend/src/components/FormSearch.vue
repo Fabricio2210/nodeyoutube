@@ -49,11 +49,11 @@
             <b-form-select class="mb-3" v-model="selected" :options="options"></b-form-select>
             <b-row class="d-flex justify-content-between">
             <b-col md="6" class="mb-3">
-              <label class="labelDate">Start Date(Optional)</label>
+              <label class="labelDate text-light">Start Date(Optional)</label>
               <b-form-input placeholder="teste" size='sm'  type="date" v-model="form.dateFrom"></b-form-input>
                 </b-col>
                 <b-col md="6" class="mb-3">
-                  <label class="labelDate">End Date(Optional)</label>
+                  <label class="labelDate text-light">End Date(Optional)</label>
                   <b-form-input placeholder="teste" size='sm'  type="date" v-model="form.dateEnd"></b-form-input>
                 </b-col>
               </b-row>
@@ -89,11 +89,11 @@
           <b-form-select class="mb-3" v-model="selected"  :options="options"></b-form-select>
            <b-row class="d-flex justify-content-between">
             <b-col md="6" class="mb-3">
-              <label class="labelDate">Start Date(Optional)</label>
+              <label class="labelDate text-light">Start Date(Optional)</label>
               <b-form-input placeholder="teste" size='sm'  type="date" v-model="form.dateFrom"></b-form-input>
                 </b-col>
                 <b-col md="6" class="mb-3">
-                  <label class="labelDate">End Date(Optional)</label>
+                  <label class="labelDate text-light">End Date(Optional)</label>
                   <b-form-input placeholder="teste" size='sm'  type="date" v-model="form.dateEnd"></b-form-input>
                 </b-col>
               </b-row>

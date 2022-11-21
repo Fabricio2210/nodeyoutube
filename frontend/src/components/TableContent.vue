@@ -1,7 +1,7 @@
 <template>
     <div id="up" class="animated fadeIn text-white">
       <div v-if="info2.length">
-       <Loading v-if="isLoading" />
+       <Loading class="text-dark" v-if="isLoading" />
       <div v-if="!isLoading">
       <div class="row py-4">
         <div class="col-md-12 d-none d-lg-block textMenuButtons">
