@@ -1,7 +1,7 @@
 <template>
     <div class="py-1">
   <b-navbar class="bgnav bordanav" fixed="top" toggleable="lg" type="light" variant="info">
-    <b-navbar-brand class="titulo"><h3 class="fontTitulo">DEVELOPERS ARCHIVES <v-icon name="laptop-code" scale="4"/></h3></b-navbar-brand>
+    <b-navbar-brand class="titulo"><h3 class="fontTitulo">DEVELOPERS ARCHIVES</h3></b-navbar-brand>
          <b-navbar-nav class="link" >
             <router-link class="link" exact-active-class="active" to="/" tag="b-nav-item">Home</router-link> 
             <router-link class="link" exact-active-class="active" to="/about" tag="b-nav-item">About</router-link>

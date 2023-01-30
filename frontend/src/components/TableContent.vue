@@ -1,5 +1,5 @@
 <template>
-    <div id="up" class="animated fadeIn text-white">
+    <div id="up" class="animated fadeIn">
       <div v-if="info2.length">
        <Loading class="text-dark" v-if="isLoading" />
       <div v-if="!isLoading">
